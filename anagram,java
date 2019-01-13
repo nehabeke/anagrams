@@ -1,0 +1,39 @@
+class Solution {
+    //Given a list of strings give the sub-list of all anagrams.
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        
+        HashMap<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+        
+        for(int i = 0; i < strs.length; i++){
+            String word = strs[i];
+            char[] c = word.toCharArray();
+            Arrays.sort(c);
+            String newword = new String(c);
+            
+            int n = newword.hashCode();
+            //System.out.println(n); 
+            if(map.containsKey(n)){
+                List<String> words = map.get(n);
+                words.add(word);
+                map.put(n, words);
+            }
+            else{
+                List<String> words = new ArrayList<String>();
+                words.add(word);
+                map.put(n, words);
+            }
+        }
+        
+        for(Integer i: map.keySet()){
+                List<String> values = map.get(i);
+                
+                if(values.size() >= 1){
+                    System.out.println(values); 
+                    res.add(values);
+                }
+            }
+        
+        return res;
+    }
+}
